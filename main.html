@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flighter</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="flightDetails">
+    <input type="text" id="name" placeholder="Name">
+    <input type="text" id="origin" placeholder="Origin">
+    <input type="text" id="destination" placeholder="Destination">
+    <input type="number" id="price" placeholder="Price">
+    <input type="number" id="rating" placeholder="Rating">
+    <button onclick="addFlight()">Add</button>
+    <div id="error" style="display: none; color: red;">Please fill out all fields!</div>
+  </div>
+
+  <div id="sorter">
+    <button onclick="sortByPrice()">Sort by Price (asc)</button>
+    <button onclick="sortByRating()">Sort by Rating (asc)</button>
+  </div>
+
+  <div id="flightItems">
+    <!-- Flight cards will be dynamically added here -->
+  </div>
+
+  <script>
+    let flightList = [
+      { name: "Flight 1", origin: "Origin 1", destination: "Destination 1", price: 100, rating: 4 },
+      { name: "Flight 2", origin: "Origin 2", destination: "Destination 2", price: 200, rating: 5 }
+    ];
+
+    function renderFlights() {
+      const flightItems = document.getElementById('flightItems');
+      flightItems.innerHTML = '';
+
+      flightList.forEach(flight => {
+        const flightCard = document.createElement('ul');
+        flightCard.classList.add('card');
+
+        flightCard.innerHTML = `
+          <li>Flight Name: ${flight.name}</li>
+          <li>${flight.origin} to ${flight.destination}</li>
+          <li>Rating: ${flight.rating}*</li>
+          <li>Price: Rs.${flight.price}</li>
+        `;
+
+        flightItems.appendChild(flightCard);
+      });
+    }
+
+    function addFlight() {
+      const name = document.getElementById('name').value;
+      const origin = document.getElementById('origin').value;
+      const destination = document.getElementById('destination').value;
+      const price = document.getElementById('price').value;
+      const rating = document.getElementById('rating').value;
+
+      if (!name || !origin || !destination || !price || !rating) {
+        document.getElementById('error').style.display = 'block';
+        return;
+      }
+
+      document.getElementById('error').style.display = 'none';
+
+      flightList.push({ name, origin, destination, price, rating });
+      renderFlights();
+
+      // Clear input fields
+      document.getElementById('name').value = '';
+      document.getElementById('origin').value = '';
+      document.getElementById('destination').value = '';
+      document.getElementById('price').value = '';
+      document.getElementById('rating').value = '';
+    }
+
+    let sortByPriceAsc = true;
+    let sortByRatingAsc = true;
+
+    function sortByPrice() {
+      flightList.sort((a, b) => {
+        return sortByPriceAsc ? a.price - b.price : b.price - a.price;
+      });
+      sortByPriceAsc = !sortByPriceAsc;
+      document.getElementById('sorter').querySelectorAll('button')[0].textContent = `Sort by Price (${sortByPriceAsc ? 'asc' : 'desc'})`;
+      renderFlights();
+    }
+
+    function sortByRating() {
+      flightList.sort((a, b) => {
+        return sortByRatingAsc ? a.rating - b.rating : b.rating - a.rating;
+      });
+      sortByRatingAsc = !sortByRatingAsc;
+      document.getElementById('sorter').querySelectorAll('button')[1].textContent = `Sort by Rating (${sortByRatingAsc ? 'asc' : 'desc'})`;
+      renderFlights();
+    }
+
+    renderFlights(); // Initial rendering
+  </script>
+</body>
+</html>

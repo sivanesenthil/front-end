@@ -1,0 +1,64 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Flight details section */
+  .flight-details {
+    margin-bottom: 20px;
+  }
+  
+  .flight-details input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .flight-details input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  /* Sorting section */
+  #sorter {
+    margin-bottom: 20px;
+  }
+  
+  .sort-option {
+    cursor: pointer;
+  }
+  
+  /* Flights list section */
+  #flightItems {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: calc(50% - 20px);
+  }
+  
+  .card li {
+    list-style-type: none;
+    margin-bottom: 5px;
+  }
+  
+  .card:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+  
